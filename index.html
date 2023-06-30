@@ -71,6 +71,13 @@
 			// Loading objects
 			const objLoader = new GLTFLoader();
 			
+			const malpaLocation = new THREE.Vector(0,0,0); 
+			const dlugiLocation = new THREE.Vector(0,0,0); 
+			const kolkoLocation = new THREE.Vector(0,0,0); 
+			const paczekLocation = new THREE.Vector(0,0,0); 
+			const stozekLocation = new THREE.Vector(0,0,0); 
+			
+			
 			// Obiekt małpa 
 			var path = "malpa.glb";
 			
@@ -81,6 +88,7 @@
 						node.castShadow = node.receiveShadow = true;
 					}
 				});
+				model.position.copy(malpaLocation);
 				scene.add(model);
 			});
 
@@ -94,6 +102,8 @@
 						node.castShadow = node.receiveShadow = true;
 					}
 				});
+				
+				model.position.copy(dlugiLocation);
 				scene.add(model);
 			});
 			
@@ -107,6 +117,7 @@
 						node.castShadow = node.receiveShadow = true;
 					}
 				});
+				model.position.copy(kolkoLocation);
 				scene.add(model);
 			});
 
@@ -120,6 +131,8 @@
 						node.castShadow = node.receiveShadow = true;
 					}
 				});
+				
+				model.position.copy(paczekLocation);
 				scene.add(model);
 			});
 	
@@ -133,6 +146,8 @@
 						node.castShadow = node.receiveShadow = true;
 					}
 				});
+				
+				model.position.copy(stozekLocation);
 				scene.add(model);
 			});
 
