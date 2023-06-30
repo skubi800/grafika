@@ -74,11 +74,11 @@
 			const objLoader = new OBJLoader();
 			objLoader.load(modelPath, function (obj) {
 				var model = obj.scene;
-				model.traverse(function(node) {
-					if(node.isMesh) {
-						node.castShadow = node.receiveShadow = true;
-					}
-				});
+				//model.traverse(function(node) {
+				//	if(node.isMesh) {
+				//		node.castShadow = node.receiveShadow = true;
+				//	}
+				//});
 				scene.add(model);
 			});
 
