@@ -1,0 +1,103 @@
+<html>
+	<head>
+		<title>THREE Shadows</title>
+		<style>
+			body { margin: 0; height:100%; width:100%;}
+		</style>
+	</head>
+	<body>
+		<script async src="https://unpkg.com/es-module-shims@1.3.6/dist/es-module-shims.js"></script>
+		<script type="importmap">
+		{
+			"imports": {
+			"three": "https://unpkg.com/three/build/three.module.js"
+			}
+		}
+		</script>
+		<script type="module">
+
+			import * as THREE from 'three';
+			import { OrbitControls } from 'https://unpkg.com/three/examples/jsm/controls/OrbitControls.js';
+			import { OBJLoader } from 'https://unpkg.com/three/examples/jsm/loaders/OBJLoader.js';
+			
+			// scene
+			const scene = new THREE.Scene();
+			
+			//background texture			
+			const loader = new THREE.TextureLoader();
+			loader.load('https://hips.hearstapps.com/hmg-prod/images/alpe-di-siusi-sunrise-with-sassolungo-or-langkofel-royalty-free-image-1623254127.jpg', function(texture) {
+				scene.background = texture;
+			});			
+
+			// camera
+			const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+			camera.position.set(0,3,12);
+
+			// renderer
+			const renderer = new THREE.WebGLRenderer();
+
+			// enabling shadows
+			renderer.shadowMap.enabled = true;
+    		renderer.shadowMap.type = THREE.BasicShadowMap;
+
+			document.body.appendChild(renderer.domElement);
+			renderer.setSize(window.innerWidth, window.innerHeight);
+
+			// orbit controls
+			const controls = new OrbitControls(camera, renderer.domElement);
+
+			// plane geometry
+			const geometryP = new THREE.PlaneGeometry(10, 10);
+			const materialP = new THREE.MeshStandardMaterial({color:0xffffff})
+			const plane = new THREE.Mesh(geometryP, materialP);
+
+			plane.castShadow = false;
+			plane.receiveShadow = true;
+			plane.rotation.x = -Math.PI / 2;
+			scene.add(plane);
+
+			// sphere geometry
+			const geometryS = new THREE.SphereGeometry(2, 32, 32);
+			const materialS = new THREE.MeshStandardMaterial({
+				color:0xffffff,
+				wireframe: true,
+			});
+
+			const sphere = new THREE.Mesh(geometryS, materialS);
+			sphere.position.set(0,3,0);
+			sphere.castShadow = true;
+			scene.add(sphere);
+
+
+			// małpa 
+			var modelPath = "maupa.obj";
+			const objLoader = new OBJLoader();
+			objLoader.load(modelPath, function (obj) {
+				var model = obj.scene;
+				model.traverse(function(node) {
+					if(node.isMesh) {
+						node.castShadow = node.receiveShadow = true;
+					}
+				});
+				scene.add(model);
+			});
+
+			// light
+			let light = new THREE.DirectionalLight(0xFFFFFF, 3.0);
+    		light.position.set(20, 100, 10);
+			light.target.position.set(0, 0, 0);
+			light.castShadow = true;
+			scene.add(light);
+			
+			// rendering function
+			function animate() {	
+				requestAnimationFrame(animate);
+				controls.update();
+				renderer.render(scene, camera);
+			};
+
+			animate();
+
+		</script>
+	</body>
+</html>
