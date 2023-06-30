@@ -23,7 +23,7 @@
 			// scene
 			const scene = new THREE.Scene();
 			
-			//background texture			
+			// Background texture			
 			const loader = new THREE.TextureLoader();
 			loader.load('https://hips.hearstapps.com/hmg-prod/images/alpe-di-siusi-sunrise-with-sassolungo-or-langkofel-royalty-free-image-1623254127.jpg', function(texture) {
 				scene.background = texture;
@@ -60,7 +60,7 @@
 			const geometryS = new THREE.SphereGeometry(2, 32, 32);
 			const materialS = new THREE.MeshStandardMaterial({
 				color:0xffffff,
-				wireframe: true,
+				wireframe: false,
 			});
 
 			const sphere = new THREE.Mesh(geometryS, materialS);
@@ -68,19 +68,75 @@
 			sphere.castShadow = true;
 			scene.add(sphere);
 
-
-			// małpa 
-			var modelPath = "malpa.glb";
+			// Loading objects
 			const objLoader = new GLTFLoader();
-			objLoader.load(modelPath, function (obj) {
+			
+			// Obiekt małpa 
+			var path = "malpa.glb";
+			
+			objLoader.load(path, function (obj) {
 				var model = obj.scene;
 				model.traverse(function(node) {
 					if(node.isMesh) {
-						node.castShadow = node.receiveShadow = true;
+						node.castShadow = node.receiveShadow = false;
 					}
 				});
 				scene.add(model);
 			});
+
+			// Obiekt długi
+			var path = "dlugi.glb";
+			
+			objLoader.load(path, function (obj) {
+				var model = obj.scene;
+				model.traverse(function(node) {
+					if(node.isMesh) {
+						node.castShadow = node.receiveShadow = false;
+					}
+				});
+				scene.add(model);
+			});
+			
+			// Obiekt kółko
+			var path = "kolko.glb";
+			
+			objLoader.load(path, function (obj) {
+				var model = obj.scene;
+				model.traverse(function(node) {
+					if(node.isMesh) {
+						node.castShadow = node.receiveShadow = false;
+					}
+				});
+				scene.add(model);
+			});
+
+			// Obiekt pączek
+			var path = "paczek.glb";
+			
+			objLoader.load(path, function (obj) {
+				var model = obj.scene;
+				model.traverse(function(node) {
+					if(node.isMesh) {
+						node.castShadow = node.receiveShadow = false;
+					}
+				});
+				scene.add(model);
+			});
+	
+			// Obiek stożek
+			var path = "stozek.glb";
+			
+			objLoader.load(path, function (obj) {
+				var model = obj.scene;
+				model.traverse(function(node) {
+					if(node.isMesh) {
+						node.castShadow = node.receiveShadow = false;
+					}
+				});
+				scene.add(model);
+			});
+
+
 
 			// light
 			let light = new THREE.DirectionalLight(0xFFFFFF, 3.0);
@@ -89,10 +145,21 @@
 			light.castShadow = true;
 			scene.add(light);
 			
+			
+			
+			
+			
+			
+			
+			
+			
 			// rendering function
 			function animate() {	
 				requestAnimationFrame(animate);
 				controls.update();
+				//light.position.x = camera.position.x 
+				//light.position.y = camera.position.y
+				//light.position.z = camera.position.z
 				renderer.render(scene, camera);
 			};
 
