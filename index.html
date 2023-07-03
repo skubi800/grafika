@@ -22,8 +22,8 @@
 			const scene = new THREE.Scene();
 			
 			// Background texture			
-			const loader = new THREE.TextureLoader();
-			loader.load('https://hips.hearstapps.com/hmg-prod/images/alpe-di-siusi-sunrise-with-sassolungo-or-langkofel-royalty-free-image-1623254127.jpg', function(texture) {
+			const textureLoader = new THREE.TextureLoader();
+			textureLoader.load('https://hips.hearstapps.com/hmg-prod/images/alpe-di-siusi-sunrise-with-sassolungo-or-langkofel-royalty-free-image-1623254127.jpg', function(texture) {
 				scene.background = texture;
 			});			
 
@@ -169,9 +169,6 @@
 			function animate() {	
 				requestAnimationFrame(animate);
 				controls.update();
-				//light.position.x = camera.position.x 
-				//light.position.y = camera.position.y
-				//light.position.z = camera.position.z
 				renderer.render(scene, camera);
 			};
 
