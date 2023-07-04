@@ -54,18 +54,6 @@
 			plane.rotation.x = -Math.PI / 2;
 			scene.add(plane);
 
-			// sphere geometry
-			const geometryS = new THREE.SphereGeometry(2, 32, 32);
-			const materialS = new THREE.MeshStandardMaterial({
-				color:0xffffff,
-				wireframe: false,
-			});
-
-			const sphere = new THREE.Mesh(geometryS, materialS);
-			sphere.position.set(0,3,0);
-			sphere.castShadow = true;
-			scene.add(sphere);
-
 			// Loading objects
 			const objLoader = new GLTFLoader();
 			
@@ -166,6 +154,7 @@
 			light.shadow.camera.left = -20;
 			light.shadow.camera.right = 20;
 			light.shadow.camera.top = 20;
+
 			
 			
 			
